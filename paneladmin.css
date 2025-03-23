@@ -1,0 +1,384 @@
+
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+       
+
+      /* Estilos responsivos */
+      @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            /* .sidebar a {
+                float: left;
+                padding: 10px;
+                text-align: center;
+                width: 100%;
+                box-sizing: border-box;
+            } */
+            .sidebar h2 {
+                float: none;
+                text-align: center;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            .table-container {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .table-container .row.header {
+                display: none;
+            }
+            
+            .table-container .row {
+                display: flex;
+                justify-content: space-between;
+                padding: 5px 0;
+            }
+
+            .table-container {
+                flex: 1;
+                padding: 10px;
+                text-align: left;
+                font-size: 14px;
+                
+            }
+
+            .table-container .row .col:before {
+                content: attr(data-label);
+                flex-basis: 50%;
+                text-align: left;
+                font-weight: bold;
+            }
+        
+        }
+/* Estilos para el modal */
+.modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: white;
+    border-bottom: none;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+#producto-detalles img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal.fade .modal-dialog {
+    animation: fadeIn 0.5s;
+}
+/* Estilos generales */
+
+/* Responsividad para dispositivos pequeños */
+@media (max-width: 768px) {
+/* Cambiar la visualización de la tabla a tarjetas */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 15px;
+}
+
+/* Cada tarjeta de producto */
+.product-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 300px; /* Establecer un tamaño máximo para las tarjetas */
+    margin: 10px;
+    text-align: left;
+    transition: transform 0.3s ease;
+    
+}
+
+.product-card:hover {
+    transform: scale(1.05); /* Efecto de hover para resaltar las tarjetas */
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.product-card .product-info {
+    margin-bottom: 15px;
+}
+
+.product-card .product-info h5 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.product-card .product-info p {
+    font-size: 1em;
+    margin: 5px 0;
+    color: #666;
+}
+
+.product-card .product-info .price {
+    font-size: 1.1em;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.product-card .actions {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.product-card .actions button {
+    padding: 10px 15px;
+    font-size: 1em;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-card .actions button:hover {
+    background-color: #0056b3;
+}
+
+/* Agregar etiquetas a las celdas */
+.product-card .product-info .label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Ajuste del tamaño de las tarjetas */
+.product-card {
+    width: 100%;
+    max-width: 300px; /* Tamaño máximo de la tarjeta */
+}
+}
+
+/* Estilos generales */
+.content {
+padding: 20px;
+}
+
+/* Header */
+.header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px;
+background-color: #f8f9fa;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+color: #007bff;
+margin-bottom: 0;
+}
+
+.buttons {
+display: flex;
+gap: 10px;
+}
+
+.buttons button {
+padding: 5px 10px;
+font-size: 14px;
+}
+
+/* Responsivo para dispositivos pequeños */
+@media (max-width: 576px) {
+/* Ajustar el header a columna en dispositivos pequeños */
+.header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.title {
+    margin-bottom: 10px;
+}
+
+.buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+/* Botón registrar producto */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.button-container button {
+    width: 100%;
+}
+}
+
+/* Responsivo para pantallas más grandes */
+@media (min-width: 577px) {
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.button-container button {
+    width: auto;
+}
+/* Ajustar el tamaño de la tarjeta de producto */
+
+.product-card {
+    width: 300px;
+    max-width: none;
+}
+/* Ajustar el tamaño de la tabla */
+.table-container {
+    margin: 20px 0;
+}
+/* Ajustar el tamaño de la barra de búsqueda */
+
+}
+
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para el sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #343a40;
+    color: white;
+    padding-top: 20px;
+    z-index: 10;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    font-size: 16px;
+}
+
+.sidebar a:hover {
+    background-color: #575d63;
+}
+
+.sidebar h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.table-container {
+    width: 90px;
+    /* margin-top: 50px; */
+    margin-bottom: 50px;
+}
+
+.table-container table {
+    width: 100%;
+    /* margin-top: 20px; */
+    text-align: center;
+}
+
+.table-container th, .table-container td {
+    padding: 10px;
+}
+
+.table-container {
+    padding: 0;
+    width: 100%;
+    overflow-y: auto;
+    max-height: calc(100vh - 300px);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    align-items: center;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.modal-header .btn-close {
+    outline: none;
+}
+.img-producto {
+width: 60px;  /* Ajusta el tamaño según sea necesario */
+height: 60px;
+object-fit: cover; /* Evita distorsión */
+border-radius: 8px; /* Bordes redondeados */
+display: block;
+margin: auto;
+}
