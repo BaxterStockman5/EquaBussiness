@@ -11,7 +11,6 @@ while ($row = $result->fetch_assoc()) {
         "imagen" => $row["imagen"]
     );
 }
-
 header('Content-Type: application/json');
 echo json_encode($publicidades);
 ?>

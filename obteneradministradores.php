@@ -7,11 +7,11 @@ $resultado = mysqli_query($conexion, $sql); // CORRECCIÓN AQUÍ
 
 $administradores = array();
 
-if ($resultado) { // Verificar si la consulta se ejecutó correctamente
+if ($resultado) { //Verificar si la consulta se ejecutó correctamente
     while ($fila = mysqli_fetch_assoc($resultado)) {
         $administradores[] = $fila;
     }
-    mysqli_free_result($resultado); // Liberar memoria del resultado
+    mysqli_free_result($resultado); //Liberar memoria del resultado
 }
 
 // Devolver JSON

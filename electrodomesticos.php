@@ -4,7 +4,7 @@ require 'conexion.php';
 $sql = "SELECT p.id_producto, p.nombre, p.descripcion, p.precio, p.imagen
 FROM productos p
 INNER JOIN categorias c ON p.id_categoria = c.id_categoria
-WHERE c.nombre = 'moda'";
+WHERE c.nombre = 'electronica'";
 
 $result = $conexion->query($sql);
 

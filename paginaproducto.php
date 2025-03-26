@@ -94,7 +94,7 @@ $conexion->close();
                     <a class="nav-link" href="hogar.php">hogar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Música</a>
+                    <a class="nav-link" href="./gmail.php">contactanos</a>
                 </li>
                 <!-- Carrito -->
                 <li class="nav-item">
@@ -668,54 +668,53 @@ document.getElementById("form-validar-pedido").addEventListener("submit", functi
 });
         // funcion para mostrar los articulos del carrito dentro del modal
     // Función para mostrar los productos en el carrito
-function mostrarCarrito() {
+    function mostrarCarrito() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "mostrar_carrito.php", true);
 
     xhr.onload = function () {
-    if (xhr.status === 200) {
-        const carrito = JSON.parse(xhr.responseText);
-        const modalBody = document.getElementById('contenido-carrito');
-        modalBody.innerHTML = '';  // Limpiar contenido
+        if (xhr.status === 200) {
+            const carrito = JSON.parse(xhr.responseText);
+            const modalBody = document.getElementById('contenido-carrito');
+            modalBody.innerHTML = '';  // Limpiar contenido
 
-        if (carrito.length > 0) {
-            carrito.forEach((producto, index) => {
-                const { id_producto, nombre, descripcion, precio, imagen, cantidad } = producto;
+            if (carrito.length > 0) {
+                carrito.forEach((producto, index) => {
+                    const { id_producto, nombre, descripcion, precio, imagen, cantidad } = producto;
+                    const fila = document.createElement('div');
+                    fila.classList.add('producto-carrito', 'row');
+                    fila.style.animationDelay = `${index * 0.1}s`; // Retraso en la animación
 
-                const fila = document.createElement('div');
-                fila.classList.add('producto-carrito', 'row');
-                fila.style.animationDelay = `${index * 0.1}s`; // Retraso en la animación
+                    fila.innerHTML = `
+                        <div class="col-3 d-flex align-items-center">
+                            <img src="${imagen}" alt="${nombre}" class="img-fluid">
+                        </div>
+                        <div class="col-6 producto-info">
+                            <h6>${nombre}</h6>
+                            <p class="text-muted">${descripcion}</p>
+                            <p class="precio">Precio:  ${precio} XAF</p>
+                            <p>Cantidad: ${cantidad}</p>
+                        </div>
+                        <div class="col-2 d-flex align-items-center justify-content-end">
+                            <button class="btn-eliminar" onclick="eliminarProducto(${id_producto})">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
 
-                fila.innerHTML = `
-    <div class="col-3 d-flex align-items-center">
-        <img src="${imagen}" alt="${nombre}" class="img-fluid">
-    </div>
-    <div class="col-6 producto-info">
-        <h6>${nombre}</h6>
-        <p class="text-muted">${descripcion}</p>
-        <p class="precio">Precio:  ${precio} XAF</p>
-        <p>Cantidad: ${cantidad}</p>
-    </div>
-    <div class="col-2 d-flex align-items-center justify-content-end">
-        <button class="btn-eliminar" onclick="eliminarProducto(${id_producto})">
-            <i class="fa-solid fa-trash"></i>
-        </button>
-    </div>
-`;
-
-
-                modalBody.appendChild(fila);
-            });
+                    modalBody.appendChild(fila);
+                });
+            } else {
+                modalBody.innerHTML = '<p class="text-center text-muted">No hay productos en el carrito</p>';
+            }
         } else {
-            modalBody.innerHTML = '<p class="text-center text-muted">No hay productos en el carrito</p>';
+            document.getElementById('contenido-carrito').innerHTML = '<p class="text-danger">Hubo un problema al cargar el carrito</p>';
         }
-    } else {
-        document.getElementById('contenido-carrito').innerHTML = '<p class="text-danger">Hubo un problema al cargar el carrito</p>';
-    }
-};
+    };
 
-xhr.send();
+    xhr.send();
 }
+
 
 // Llamar a la función para mostrar los productos cuando se abre el modal
 document.getElementById('carrito').addEventListener('click', mostrarCarrito);

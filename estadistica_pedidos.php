@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📊 Estadísticas de Pedidos</title>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 
     <style>
@@ -70,16 +69,15 @@
     </style>
 </head>
 <body>
-
     <h2>📊 Estadísticas de Pedidos</h2>
 
-    <div id="loading">Cargando estadísticas...</div>
+    <div id="loading">Cargando estadísticas...</div>  <a style="border: none; color:#fff;" href="./paneladmin.php">volver</a>
 
     <div class="chart-container" style="display: none;">
         <canvas id="barChart"></canvas>
         <canvas id="pieChart"></canvas>
     </div>
-
+    
     <script>
         function obtenerEstadisticas() {
             var xhr = new XMLHttpRequest();
@@ -116,7 +114,7 @@
                         data: valores,
                         backgroundColor: colores,
                         borderColor: colores.map(color => color.replace(")", ", 0.8)")),
-                        borderWidth: 2
+                        borderWidth: 1
                     }]
                 },
                 options: {
@@ -125,7 +123,17 @@
                         legend: { display: false }
                     },
                     scales: {
-                        y: { beginAtZero: true }
+                        y: { 
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#fff'  // Cambiar color de los números del eje Y
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#fff'  // Cambiar color de los textos del eje X
+                            }
+                        }
                     },
                     animation: {
                         duration: 2000,
@@ -148,7 +156,12 @@
                 options: {
                     responsive: true,
                     plugins: {
-                        legend: { position: "bottom" }
+                        legend: { 
+                            position: "bottom",
+                            labels: {
+                                color: '#fff' // Cambiar color de las leyendas
+                            }
+                        }
                     },
                     animation: {
                         animateScale: true,
@@ -157,7 +170,6 @@
                 }
             });
         }
-
         obtenerEstadisticas();
     </script>
 

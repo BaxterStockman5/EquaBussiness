@@ -277,7 +277,7 @@ if (!isset($_SESSION["admin_id"])) {
     <div class="sidebar" id="sidebar">
         <h2 id="sidebarTitle">EquaBusiness</h2>
         <a href="./paginaproducto.php"><i class="fas fa-home"></i> <span class="text">Inicio</span></a>
-        <a href="#"><i class="fas fa-tachometer-alt"></i> <span class="text">Dashboard</span></a>
+        <a href="./administradores.php"><i class="fas fa-tachometer-alt"></i> <span class="text">administradores</span></a>
         <a href="#"><i class="fas fa-box"></i> <span class="text">Gestionar Productos</span></a>
         <a href="./pedidos.php"><i class="fas fa-calendar-check"></i> <span class="text">pedidos</span></a>
         <a href="./administradores.php"><i class="fas fa-users"></i> <span class="text">Usuarios</span></a>

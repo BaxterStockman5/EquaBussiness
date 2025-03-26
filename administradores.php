@@ -927,27 +927,38 @@ input:checked + .slider:before {
     </div>
   </div>
 
-  <script>
-    function cambiarEstado(id, estado) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", `cambiarestadoadmin.php?id_admin=${id}&estado=${estado}`, true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            try {
-                var respuesta = JSON.parse(xhr.responseText);
-                if (respuesta.status === "success") {
-                    alert("Estado actualizado con éxito");
-                    cargarAdministradores(); // Recargar la lista
-                } else {
-                    console.error("Error:", respuesta.message);
-                }
-            } catch (e) {
-                console.error("Error en la respuesta del servidor", e);
-            }
-        }
-    };
-    xhr.send();
+<!-- Botones para activar y desactivar usuarios -->
+<!-- Ejemplo de botones para activar o desactivar administradores -->
+<button onclick="cambiarEstado(1, 'activo')">Activar Usuario 1</button>
+<button onclick="cambiarEstado(1, 'inactivo')">Desactivar Usuario 1</button>
+
+
+<script>
+function toggleSession(id, checkbox) {
+  var status = checkbox.checked ? 'active' : 'inactive';  // Determinar el estado basado en si está marcado o no
+
+  // Crear una nueva solicitud XMLHttpRequest
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "cambiar_estado.php?id=" + id + "&status=" + status, true);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var response = xhr.responseText.trim();
+      if (response === 'success') {
+        console.log('Estado actualizado con éxito');
+      } else {
+        console.log('Error al actualizar el estado');
+      }
+    }
+  };
+
+  // Enviar la solicitud
+  xhr.send();
 }
+
+
+
+
 
 
     // Función para cargar administradores
@@ -973,13 +984,14 @@ input:checked + .slider:before {
               <div class="administradores-col">${administrador.email}</div>
               <div class="administradores-col"><img src="${administrador.foto}" alt="Foto" width="50"></div>
               <div class="administradores-col">
-<button class="btn btn-info btn-sm" onclick="verAdministrador(${administrador.id})">
-    <i class="fas fa-eye"></i>
-</button>
+                <button class="btn btn-info btn-sm" onclick="verAdministrador(${administrador.id})">
+                    <i class="fas fa-eye"></i>
+                </button>
                 <button class="btn btn-danger btn-sm" onclick="eliminarAdministrador(${administrador.id})"><i class="fa-regular fa-trash-can"></i></button>
                 <!-- Interruptor para activar/desactivar sesión -->
                 <label class="switch">
-                  <input type="checkbox" ${administrador.sessionStatus === 'active' ? 'checked' : ''} onchange="toggleSession(${administrador.id}, this)"> activar
+                  <input type="checkbox" ${administrador.estado === 'activo' ? 'checked' : ''} onchange="toggleSession(${administrador.id}, this)">
+                  activar
                   <span class="slider round"></span>
                 </label>
               </div>
@@ -1030,46 +1042,36 @@ input:checked + .slider:before {
       };
       xhr.send();
     }
-
     // Función para eliminar un administrador
     function eliminarAdministrador(id) {
-      Swal.fire({
-        title: '¿Estás seguro?',
-        text: "¡No podrás revertir esta acción!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí, eliminar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", "eliminaradmin.php", true);
-          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-              let respuesta = xhr.responseText.trim();
-              if (respuesta === "success") {
-                Swal.fire({
-                  icon: "success",
-                  title: "¡Éxito!",
-                  text: "Administrador eliminado correctamente."
-                }).then(() => {
-                  cargarAdministradores(); // Recargar la lista de administradores
-                });
-              } else {
-                Swal.fire({
-                  icon: "error",
-                  title: "Error",
-                  text: "No se pudo eliminar al administrador. Intenta de nuevo."
-                });
-              }
-            }
-          };
-          xhr.send("id=" + id);
+  // Confirmación antes de eliminar
+  if (confirm("¿Estás seguro de que deseas eliminar este administrador?")) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "eliminaradmin.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Enviar el ID del administrador al servidor
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          var response = xhr.responseText.trim();
+          if (response === "success") {
+            alert("Administrador eliminado con éxito.");
+            // Aquí puedes actualizar la lista de administradores o eliminar el administrador del DOM
+            cargarAdministradores(); // Llama a esta función si deseas recargar la lista de administradores
+          } else {
+            alert("Hubo un error al eliminar al administrador.");
+          }
+        } else {
+          alert("Hubo un problema con la solicitud.");
         }
-      });
-    }
+      }
+    };
+
+    // Enviar el ID en formato de parámetros
+    xhr.send("id=" + id);
+  }
+}
 
     function actualizarTotalAdministradores() {
   var xhr = new XMLHttpRequest();
@@ -1082,14 +1084,11 @@ input:checked + .slider:before {
   };
   xhr.send();
 }
-
 // Llama a la función al cargar la página o cuando sea necesario
 actualizarTotalAdministradores();
-
-
     // Cargar administradores al cargar la página
     document.addEventListener("DOMContentLoaded", cargarAdministradores);
   </script>
-  <script src="./administradores.js"></script>
+  <!-- <script src="./administradores.js"></script> -->
 </body>
 </html>
