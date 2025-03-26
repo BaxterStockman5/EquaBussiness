@@ -364,7 +364,7 @@ input:checked + .slider:before {
         <i class="fas fa-users"></i> <span>Administradores</span>
     </a>
     <a href="estadistica_pedidos.php"><i class="fas fa-history"></i> <span>estadisticas de pedidos</span></a>
- 
+    <li><a href="./clientes.php"><i class="fas fa-users"></i> Clientes</a></li>
 </div>
 <!-- <a href="logout.php" class="btn btn-danger">Cerrar sesión</a>dmd -->
 
@@ -388,19 +388,7 @@ input:checked + .slider:before {
 
     <!-- Menú desplegable -->
     <div class="collapse navbar-collapse" id="navbarContent">
-      <!-- <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" href="#" style="transition: color 0.3s ease;">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" style="transition: color 0.3s ease;">Administradores</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" style="transition: color 0.3s ease;">Reservas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" style="transition: color 0.3s ease;">Historial</a>
-        </li> -->
+    
       </ul>
     </div>
 
@@ -539,6 +527,26 @@ input:checked + .slider:before {
     </div>
   </div>
 </div>
+
+<!-- Modal de detalles del Administrador -->
+<div class="modal fade" id="modalVerDetallesAdmin" tabindex="-1" aria-labelledby="modalVerDetallesAdminLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalVerDetallesAdminLabel">Detalles del Administrador</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="detallesAdministrador">
+                <!-- Aquí se llenarán los detalles -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
  <!-- #region -->
     <!-- Tarjeta que muestra el número de administradores registrados -->
@@ -909,37 +917,23 @@ input:checked + .slider:before {
 
   </div>
 
-  <!-- Modal para ver detalles del administrador -->
-  <div class="modal fade" id="modalVerDetallesAdmin" tabindex="-1" aria-labelledby="modalVerDetallesAdminLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title" id="modalVerDetallesAdminLabel">Detalles del Administrador</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="detallesAdministrador">
-          <!-- Aquí se cargarán los detalles del administrador -->
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
 
 <!-- Botones para activar y desactivar usuarios -->
 <!-- Ejemplo de botones para activar o desactivar administradores -->
 <button onclick="cambiarEstado(1, 'activo')">Activar Usuario 1</button>
-<button onclick="cambiarEstado(1, 'inactivo')">Desactivar Usuario 1</button>
+<!-- <button onclick="cambiarEstado(1, 'inactivo')">Desactivar Usuario 1</button> -->
 
 
 <script>
 function toggleSession(id, checkbox) {
+
   var status = checkbox.checked ? 'active' : 'inactive';  // Determinar el estado basado en si está marcado o no
 
   // Crear una nueva solicitud XMLHttpRequest
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "cambiar_estado.php?id=" + id + "&status=" + status, true);
+  xhr.open("GET", "cambiar_estado.php?id=" + id_admin + "&status=" + status, true);
 
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -955,64 +949,199 @@ function toggleSession(id, checkbox) {
   // Enviar la solicitud
   xhr.send();
 }
+// Función para ver los detalles del administrador
 
+// function verAdministrador(button) {
+//     var id_admin = button.getAttribute('data-id_admin'); // Obtener el ID del administrador
 
+//     if (!id_admin) {
+//         console.error("ID del administrador no encontrado.");
+//         return;  // Detener la ejecución si no hay un ID válido
+//     }
 
+//     // Crear una solicitud AJAX para obtener los detalles del administrador
+//     var xhr = new XMLHttpRequest();
+//     xhr.open("GET", "veradministrador.php?id=" + id_admin, true);  // Hacemos una solicitud con el ID
+//     xhr.onreadystatechange = function() {
+//         if (xhr.readyState === 4) {  // Verificamos si la solicitud ha terminado
+//             if (xhr.status === 200) {  // Si la respuesta es exitosa
+//                 try {
+//                     var administrador = JSON.parse(xhr.responseText.trim());  // Parseamos la respuesta JSON
 
+//                     // Verificamos si la respuesta contiene un error
+//                     if (administrador.error) {
+//                         alert(administrador.error);  // Mostramos un error si no se encuentra el administrador
+//                     } else {
+//                         // Obtenemos el contenedor donde se mostrarán los detalles
+//                         var detallesDiv = document.getElementById("detallesAdministrador");
 
+//                         // Insertamos los detalles en el modal
+//                         detallesDiv.innerHTML = `
+//                             <p><strong>ID:</strong> ${administrador.id_admin}</p>
+//                             <p><strong>Nombre:</strong> ${administrador.nombre}</p>
+//                             <p><strong>Apellido:</strong> ${administrador.apellido}</p>
+//                             <p><strong>Teléfono:</strong> ${administrador.telefono}</p>
+//                             <p><strong>Dirección:</strong> ${administrador.direccion}</p>
+//                             <p><strong>Email:</strong> ${administrador.email}</p>
+//                             <p><strong>Foto:</strong><br><img src="${administrador.foto}" alt="Foto" width="100"></p>
+//                         `;
+
+//                         // Mostramos el modal con los detalles
+//                         var modal = new bootstrap.Modal(document.getElementById('modalVerDetallesAdmin'));
+//                         modal.show();
+//                     }
+//                 } catch (e) {
+//                     console.error("Error al parsear los detalles:", e);  // Si ocurre un error al parsear la respuesta
+//                 }
+//             } else {
+//                 console.error("Error al cargar los detalles del administrador. Código:", xhr.status);  // Si la solicitud falla
+//             }
+//         }
+//     };
+//     xhr.send();  // Enviamos la solicitud
+// }
 
     // Función para cargar administradores
-    function cargarAdministradores() {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "obteneradministradores.php", true);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        try {
-          var administradores = JSON.parse(xhr.responseText.trim());
-          var container = document.getElementById("administradores-list");
-          container.innerHTML = ""; // Limpiar contenedor
+// Función para cargar administradores
+function cargarAdministradores() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "obteneradministradores.php", true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    var administradores = JSON.parse(xhr.responseText.trim());
+                    var container = document.getElementById("administradores-list");
+                    container.innerHTML = ""; // Limpiar contenedor
 
-          administradores.forEach(function(administrador) {
-            var row = document.createElement("div");
-            row.classList.add("administradores-row");
-            row.innerHTML = `
-              <div class="administradores-col">${administrador.nombre}</div>
-              <div class="administradores-col">${administrador.apellido}</div>
-              <div class="administradores-col">${administrador.telefono}</div>
-              <div class="administradores-col">${administrador.direccion}</div>
-              <div class="administradores-col">${administrador.email}</div>
-              <div class="administradores-col"><img src="${administrador.foto}" alt="Foto" width="50"></div>
-              <div class="administradores-col">
-                <button class="btn btn-info btn-sm" onclick="verAdministrador(${administrador.id})">
-                    <i class="fas fa-eye"></i>
-                </button>
-                <button class="btn btn-danger btn-sm" onclick="eliminarAdministrador(${administrador.id})"><i class="fa-regular fa-trash-can"></i></button>
-                <!-- Interruptor para activar/desactivar sesión -->
-                <label class="switch">
-                  <input type="checkbox" ${administrador.estado === 'activo' ? 'checked' : ''} onchange="toggleSession(${administrador.id}, this)">
-                  activar
-                  <span class="slider round"></span>
-                </label>
-              </div>
-            `;
-            container.appendChild(row);
-          });
-        } catch (e) {
-          console.error("Error al parsear los datos:", e);
+                    administradores.forEach(function(administrador) {
+                        var row = document.createElement("div");
+                        row.classList.add("administradores-row");
+                        row.innerHTML = `
+                            <div class="administradores-col">${administrador.nombre}</div>
+                            <div class="administradores-col">${administrador.apellido}</div>
+                            <div class="administradores-col">${administrador.telefono}</div>
+                            <div class="administradores-col">${administrador.direccion}</div>
+                            <div class="administradores-col">${administrador.email}</div>
+                            <div class="administradores-col"><img src="${administrador.foto}" alt="Foto" width="50"></div>
+                            <div class="administradores-col">
+                               
+          
+                                <!-- Interruptor para activar/desactivar sesión -->
+                                <label class="switch">
+                                  <input type="checkbox" ${administrador.estado === 'activo' ? 'checked' : ''} data-id_admin="${administrador.id_admin}" onchange="toggleSession(this)">
+                                  activar
+                                  <span class="slider round"></span>
+                                </label>
+                            </div>
+                        `;
+                        container.appendChild(row);
+                    });
+                } catch (e) {
+                    console.error("Error al parsear los datos:", e);
+                }
+            } else {
+                console.error("Error al cargar administradores. Código:", xhr.status);
+            }
         }
-      } else {
-        console.error("Error al cargar administradores. Código:", xhr.status);
-      }
+    };
+    xhr.send();
+}
+
+// Función para ver detalles del administrador
+function verAdministrador(button) {
+    var id_admin = button.getAttribute('data-id_admin'); // Obtenemos id_admin
+    console.log("Ver administrador con ID:", id_admin);
+     
+}
+
+// Función para cargar administradores
+
+window.onload = function() {
+    cargarAdministradores();
+};
+
+// Función para cargar administradores
+function eliminarAdministrador(button) {
+    var id_admin = button.getAttribute('data-id_admin');
+    console.log(id_admin);  // Verifica si el ID es correcto
+
+    if (!id_admin) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'ID del administrador no encontrado.',
+        });
+        return;
     }
-  };
-  xhr.send();
+
+    // Confirmación antes de eliminar
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esta acción!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Crear una solicitud AJAX para eliminar al administrador
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "eliminaradmin.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            var respuesta = JSON.parse(xhr.responseText.trim());
+
+                            if (respuesta.error) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: respuesta.error,
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Eliminado',
+                                    text: 'Administrador eliminado correctamente.',
+                                });
+                                cargarAdministradores();
+                            }
+                        } catch (e) {
+                            console.error("Error al procesar la respuesta:", e);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Hubo un error al procesar la respuesta.',
+                            });
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Hubo un error al intentar eliminar el administrador.',
+                        });
+                    }
+                }
+            };
+
+            xhr.send("id_admin=" + id_admin);
+        }
+    });
+}
+// Función para activar/desactivar sesión
+function toggleSession(checkbox) {
+    var id_admin = checkbox.getAttribute('data-id_admin'); // Obtenemos id_admin
+    console.log("Cambiar estado de sesión del administrador con ID:", id_admin);
+    // Llamar a la función para activar/desactivar la sesión
 }
 
     // Función para ver los detalles del administrador
     function verAdministrador(id) {
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "veradministrador.php?id=" + id, true);
+      xhr.open("GET", "veradministrador.php?id=" + id_admin, true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
@@ -1042,36 +1171,8 @@ function toggleSession(id, checkbox) {
       };
       xhr.send();
     }
+    
     // Función para eliminar un administrador
-    function eliminarAdministrador(id) {
-  // Confirmación antes de eliminar
-  if (confirm("¿Estás seguro de que deseas eliminar este administrador?")) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "eliminaradmin.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    // Enviar el ID del administrador al servidor
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          var response = xhr.responseText.trim();
-          if (response === "success") {
-            alert("Administrador eliminado con éxito.");
-            // Aquí puedes actualizar la lista de administradores o eliminar el administrador del DOM
-            cargarAdministradores(); // Llama a esta función si deseas recargar la lista de administradores
-          } else {
-            alert("Hubo un error al eliminar al administrador.");
-          }
-        } else {
-          alert("Hubo un problema con la solicitud.");
-        }
-      }
-    };
-
-    // Enviar el ID en formato de parámetros
-    xhr.send("id=" + id);
-  }
-}
 
     function actualizarTotalAdministradores() {
   var xhr = new XMLHttpRequest();
@@ -1090,5 +1191,6 @@ actualizarTotalAdministradores();
     document.addEventListener("DOMContentLoaded", cargarAdministradores);
   </script>
   <!-- <script src="./administradores.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.0/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

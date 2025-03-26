@@ -152,31 +152,35 @@ function vaciarCarrito() {
     xhr.send();
 }
 
-// Función para actualizar el contador del carrito
+// Función para actualizar el contador del carrito dinámicamente
 function actualizarContadorCarrito() {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "contar_carrito.php", true);
+    xhr.open("GET", "obtener_conteo.php", true);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            const respuesta = JSON.parse(xhr.responseText);
-            const cantidad = respuesta.cantidad || 0;
+            try {
+                const respuesta = JSON.parse(xhr.responseText);
+                let contadorCarrito = document.getElementById("contador-carrito");
 
-            // Actualizar el contador en la campanita y en el navbar
-            document.getElementById("cantidadCarrito").textContent = cantidad;
-            document.getElementById("contador-carrito").textContent = cantidad;
+                if (respuesta.total > 0) {
+                    contadorCarrito.textContent = respuesta.total;
+                    contadorCarrito.style.display = "inline-block";
 
-            // Mostrar o esconder la notificación del carrito
-            const notificacion = document.getElementById("notificacionCarrito");
-            if (cantidad > 0) {
-                notificacion.classList.add("mostrar");
-            } else {
-                notificacion.classList.remove("mostrar");
+                    // Efecto de vibración al actualizar
+                    contadorCarrito.classList.add("vibrate");
+                    setTimeout(() => contadorCarrito.classList.remove("vibrate"), 500);
+                } else {
+                    contadorCarrito.style.display = "none";
+                }
+            } catch (error) {
+                console.error("Error al actualizar el contador:", error);
             }
-        } else {
-            console.error("Error al actualizar el contador del carrito. Código:", xhr.status);
         }
     };
 
     xhr.send();
 }
+
+// Cargar el contador al inicio
+document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);

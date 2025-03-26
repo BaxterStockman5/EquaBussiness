@@ -50,70 +50,88 @@ $conexion->close();
 </header>
 <!-- http://www.w3.org/2000/svg -->
 <!-- Menú de navegación -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background: linear-gradient(135deg, #220357, #4B0082);">
     <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand" href="#">
-            <!-- Escudo animado -->
-            <div class="escudo">
-                <!-- <svg width="50" height="50" xmlns="">
-                    <circle cx="25" cy="25" r="20" stroke="black" stroke-width="2" fill="url(#grad)" />
-                    <text x="25" y="30" font-size="12" text-anchor="middle" fill="white">EB</text>
-                </svg> -->
-                <img src="./ebisnes.jpg" alt="">
+        <!-- Logo animado -->
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <div class="escudo" style="animation: rotateLogo 3s linear infinite;">
+                <img src="./ebisnes.jpg" alt="Logo" style="height: 50px; border-radius: 50%; box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);">
             </div>
-            <!-- Gradiente de color -->
-            <defs>
-                <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:rgb(34,193,195);stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:rgb(253,187,45);stop-opacity:1" />
-                </linearGradient>
-            </defs>
+            <span class="ms-2" style="font-weight: bold; font-size: 1.3rem; color: white;">EquaBusiness</span>
         </a>
         <!-- Toggle button for mobile view -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- Processor.- Navbar links  -->
+        <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Inicio</a>
+                    <a class="nav-link active link-hover" href="#">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./catalogoproductos.php">Catálogo</a>
+                    <a class="nav-link link-hover" href="electrodomesticos.php">Electrónica</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="electrodomesticos.php">Electronica</a>
+                    <a class="nav-link link-hover" href="moda.php">Moda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="moda.php">Moda</a>
-                </li>
-               
-                <li class="nav-item">
-                    <a class="nav-link" href="hogar.php">hogar</a>
+                    <a class="nav-link link-hover" href="hogar.php">Hogar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./gmail.php">contactanos</a>
+                    <a class="nav-link link-hover" href="./gmail.php">Contáctanos</a>
                 </li>
                 <!-- Carrito -->
-                <li class="nav-item">
-                    <a class="nav-link position-relative" href="#" id="carrito" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+                <li class="nav-item position-relative">
+                    <a class="nav-link position-relative carrito-hover" href="#" id="carrito" data-bs-toggle="modal" data-bs-target="#modalCarrito">
                         <i class="fas fa-shopping-cart fa-lg"></i>
-                        <span id="contador-carrito" class="badge bg-danger position-absolute top-0 start-100 translate-middle"></span>
+                        <span id="contador-carrito" class="badge bg-danger position-absolute top-0 start-100 translate-middle">0</span>
                     </a>
                 </li>
-                <a href="login.php" class="btn btn-primary">Iniciar sesión</a>
+                <li class="nav-item ms-3">
+                    <a href="login.php" class="btn btn-outline-light btn-hover">Iniciar sesión</a>
+                </li>
             </ul>
         </div>
     </div>
-    <!-- Notificación de carrito -->
-    <div id="notificacionCarrito" class="notificacion">
-        <div id="campanita" class="campanita">
-            <span id="cantidadCarrito">0</span> <!-- Muestra la cantidad de productos -->
-        </div>
-    </div>
 </nav>
+
+<style>
+/* Efectos de animación y mejoras */
+@keyframes rotateLogo {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.link-hover {
+    transition: color 0.3s ease-in-out;
+}
+.link-hover:hover {
+    color: #ffcc00 !important;
+    text-decoration: underline;
+}
+
+.carrito-hover:hover {
+    animation: vibrar 0.2s ease-in-out;
+}
+
+@keyframes vibrar {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+}
+
+.btn-hover {
+    transition: background 0.3s, transform 0.2s;
+}
+.btn-hover:hover {
+    background: #ffcc00 !important;
+    color: black !important;
+    transform: scale(1.1);
+}
+</style>
+
 
 <!-- Estilos y Animaciones -->
 <style>
@@ -416,11 +434,58 @@ document.getElementById("botonAgregarCarrito").addEventListener("click", agregar
 </script>
     <!-- Sección de Productos -->
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Nuestros Productos</h2>
-        <div class="row" id="productos-container">
-            <!-- Los productos se cargarán dinámicamente aquí -->
-        </div>
+    <h2 class="text-center mb-4 section-title">Nuestros Productos</h2>
+    <div class="row" id="productos-container">
+        <!-- Los productos se cargarán dinámicamente aquí -->
     </div>
+</div>
+
+<style>
+    .vibrate {
+    animation: vibrate 0.3s ease-in-out;
+}
+
+@keyframes vibrate {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
+
+    
+/* Animación para el título */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4B0082;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #ffcc00;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+/* Animación de los productos */
+#productos-container {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Efecto de aparición */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Efecto de entrada del título */
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+</style>
+
 
     <!-- Modal para validar pedido o reserva -->
     <div class="modal fade" id="modalValidarPedido" tabindex="-1" aria-labelledby="modalValidarPedidoLabel" aria-hidden="true">
@@ -458,7 +523,6 @@ document.getElementById("botonAgregarCarrito").addEventListener("click", agregar
                             <label for="ubicacion" class="form-label">Ubicación</label>
                             <input type="text" name="ubicacion" class="form-control form-control-sm shadow-sm" id="ubicacion" required placeholder="Ubicación del usuario">
                         </div>
-
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-success btn-sm w-100 shadow-sm">Validar Pedido</button>
                         </div>
@@ -467,7 +531,6 @@ document.getElementById("botonAgregarCarrito").addEventListener("click", agregar
             </div>
         </div>
     </div>
-
 
     <script>
         

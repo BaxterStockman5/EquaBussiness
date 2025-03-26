@@ -1,32 +1,36 @@
-
-
 <?php
-// Incluir la conexión a la base de datos
-require 'conexion.php';
+include("./conexion.php");
 
-// Verificar si se pasó el ID del administrador a eliminar
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
+// Verifica si se ha pasado el parámetro 'id_admin' en la solicitud POST
+if (isset($_POST['id_admin']) && is_numeric($_POST['id_admin'])) {
+    $id_admin = $_POST['id_admin'];  // Obtenemos el ID del administrador
 
-    // Consulta SQL para eliminar al administrador
-    $sql = "DELETE FROM administradores WHERE id_admin = ?"; // Asegúrate de que la columna sea 'id_admin'
-
-    // Preparar y ejecutar la sentencia
-    if ($stmt = $conexion->prepare($sql)) {
-        $stmt->bind_param("i", $id);  // Vinculamos el parámetro id como entero
-        if ($stmt->execute()) {
-            echo "success"; // Respuesta de éxito
-        } else {
-            echo "error"; // Si hubo un problema al ejecutar
-        }
-        $stmt->close();
-    } else {
-        echo "error_prepare"; // Si no se pudo preparar la consulta
+    // Prepara y ejecuta una consulta SQL para eliminar al administrador
+    $stmt = $conexion->prepare("DELETE FROM administradores WHERE id_admin = ?");
+    
+    if (!$stmt) {
+        // Si hay un error preparando la consulta, lo mostramos
+        echo json_encode(['error' => 'Error en la preparación de la consulta SQL.']);
+        exit;
     }
-} else {
-    echo "error"; // Si no se recibe el ID
-}
 
-// Cerrar la conexión
-$conexion->close();
+    $stmt->bind_param("i", $id_admin);  // "i" indica que el parámetro es un entero
+
+    // Ejecutar la consulta
+    if ($stmt->execute()) {
+        echo json_encode(['success' => 'Administrador eliminado correctamente.']);
+    } else {
+        // Si la ejecución falla, mostramos el error de MySQL
+        echo json_encode(['error' => 'No se pudo eliminar al administrador. Error de MySQL: ' . $stmt->error]);
+    }
+
+    // Cierra la conexión
+    $stmt->close();
+    $conexion->close();
+} else {
+    // Si no se pasa un ID válido
+    echo json_encode(['error' => 'ID inválido o no proporcionado.']);
+}
 ?>
+
+

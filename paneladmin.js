@@ -50,7 +50,6 @@ function cargarProductos() {
 
     xhr.send();
 }
-
 // Función para cargar las categorías en los select
 function cargarCategorias() {
     let xhr = new XMLHttpRequest();
@@ -109,7 +108,6 @@ function agregarProducto() {
 
     xhr.send(formData);
 }
-
 // Función para mostrar el modal de editar producto
 function mostrarModalEditar(id) {
     let xhr = new XMLHttpRequest();
@@ -133,7 +131,6 @@ function mostrarModalEditar(id) {
 
     xhr.send();
 }
-
 // Función para editar un producto
 function editarProducto() {
     const formData = new FormData(document.getElementById('form-editar-producto'));
@@ -158,7 +155,6 @@ function editarProducto() {
 
     xhr.send(formData);
 }
-
 // Función para eliminar un producto
 function eliminarProducto(id) {
     Swal.fire({

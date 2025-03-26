@@ -277,11 +277,11 @@ if (!isset($_SESSION["admin_id"])) {
     <div class="sidebar" id="sidebar">
         <h2 id="sidebarTitle">EquaBusiness</h2>
         <a href="./paginaproducto.php"><i class="fas fa-home"></i> <span class="text">Inicio</span></a>
-        <a href="./administradores.php"><i class="fas fa-tachometer-alt"></i> <span class="text">administradores</span></a>
+        <a href="./pedidos_pendientes.php"><i class="fas fa-tachometer-alt"></i> <span class="text">pedidos pendientes</span></a>
         <a href="#"><i class="fas fa-box"></i> <span class="text">Gestionar Productos</span></a>
         <a href="./pedidos.php"><i class="fas fa-calendar-check"></i> <span class="text">pedidos</span></a>
-        <a href="./administradores.php"><i class="fas fa-users"></i> <span class="text">Usuarios</span></a>
-        <a href="#"><i class="fas fa-history"></i> <span class="text">Historial</span></a>
+        <a href="./administradores.php"><i class="fas fa-users"></i> <span class="text">administradores</span></a>
+        <a href="./detalles_pedidos.php"><i class="fas fa-history"></i> <span class="text">detalles pedidos</span></a>
     </div>
 
     <!-- Botón de Toggle -->
@@ -293,7 +293,7 @@ if (!isset($_SESSION["admin_id"])) {
     <div class="content">
         <!-- Header -->
         <header class="d-flex flex-column flex-sm-row justify-content-between align-items-center p-3 bg-light shadow">
-            <h3 class="text-primary mb-3 mb-sm-0">Panel de Administración</h3>
+            <h3 class="text-primary mb-3 mb-sm-0">Panel de Administración  sona de productos</h3>
             <div class="d-flex flex-column flex-sm-row align-items-center">
                 <button class="btn btn-dark btn-sm mb-2 mb-sm-0 me-2" onclick="toggleDarkMode()">🌙</button>
                 <button class="btn btn-danger btn-sm">Cerrar Sesión</button>
@@ -405,7 +405,158 @@ if (!isset($_SESSION["admin_id"])) {
                 </div>
             </div>
         </div>
+<style>
+    /* Estilos generales del modal */
+/* Estilos generales del modal */
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f1f1f1, #e9ecef); /* Fondo degradado */
+    transition: transform 0.3s ease-in-out;
+}
 
+/* Estilo para el encabezado del modal */
+.modal-header {
+    background-color: #17a2b8; /* Fondo azul claro */
+    color: white; /* Texto blanco */
+    border-radius: 10px 10px 0 0;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    animation: fadeInUp 0.6s ease-in-out;
+}
+
+/* Estilos para el botón de cierre */
+.modal-header .close {
+    color: white;
+    font-size: 1.8rem;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.modal-header .close:hover {
+    opacity: 1;
+}
+
+/* Estilo para el cuerpo del modal */
+.modal-body {
+    padding: 20px;
+    font-size: 0.95rem;
+    color: #333;
+    text-align: center;
+    animation: fadeInUp 0.8s ease-in-out 0.2s; /* Animación retardada para el cuerpo */
+}
+
+/* Imagen del producto */
+.producto-imagen {
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    transform: scale(0.9);
+    transition: transform 0.3s ease-in-out;
+}
+
+.producto-imagen:hover {
+    transform: scale(1.05); /* Efecto hover de agrandar la imagen */
+}
+
+/* Animación de entrada del modal */
+.modal-dialog {
+    transform: scale(0.8);
+    animation: zoomIn 0.5s forwards;
+    max-width: 380px; /* Modal más pequeño */
+}
+
+/* Animación de zoom de entrada */
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Animación de aparición suave del título */
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Estilo para el nombre del producto */
+#producto-nombre {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+    margin: 15px 0;
+    text-transform: capitalize;
+    animation: fadeInUp 0.6s ease-in-out 0.4s; /* Animación para el nombre */
+}
+
+/* Estilo para la descripción del producto */
+#producto-descripcion {
+    color: #777;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Estilo para categoría y precio */
+#producto-categoria,
+#producto-precio {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+/* Estilo especial para el precio */
+#producto-precio {
+    font-weight: bold;
+    color: #28a745; /* Color verde para el precio */
+    font-size: 1.2rem;
+    animation: fadeInUp 0.6s ease-in-out 0.6s; /* Animación para el precio */
+}
+
+/* Estilo para el modal al hacer hover sobre él */
+.modal-dialog:hover {
+    transform: scale(1.05); /* Aumenta el tamaño cuando el cursor pasa sobre el modal */
+    transition: transform 0.4s ease-in-out;
+}
+
+/* Estilo para los botones de acción */
+.btn {
+    background-color: #17a2b8;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #138496; /* Cambio de color al pasar el ratón */
+    transform: translateY(-2px);
+}
+
+/* Transición suave cuando se cierra el modal */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+}
+
+</style>
         <!-- Modal de detalles del producto -->
         <div class="modal fade animate__animated animate__fadeInDown" id="modalVerProducto" tabindex="-1" role="dialog" aria-labelledby="modalVerProductoLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">

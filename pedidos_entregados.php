@@ -117,19 +117,33 @@ while ($row = $result->fetch_assoc()) {
             <li><a href="configuracion.php"><i class="fas fa-cog"></i> Configuración</a></li>
         </ul>
     </aside>
+    <style>
+        th {
+    
+    vertical-align: middle;
+    padding: 12px;
+}
+
+th i {
+    margin-right: 5px;
+    color: #ffc107; /* Color dorado para resaltar */
+}
+
+    </style>
     <main>
         <h3>Pedidos Entregados</h3>
         <div class="table-container">
             <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Cliente</th>
-                        <th>Fecha</th>
-                        <th>Total</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
+            <thead class="table-dark">
+    <tr>
+        <th><i class="fas fa-hashtag"></i> ID</th>
+        <th><i class="fas fa-user"></i> Cliente</th>
+        <th><i class="fas fa-calendar-alt"></i> Fecha</th>
+        <th><i class="fas fa-money-bill-wave"></i> Total</th>
+        <th><i class="fas fa-check-circle"></i> Estado</th>
+    </tr>
+</thead>
+
                 <tbody>
                     <?php if (count($pedidos) > 0): ?>
                         <?php foreach ($pedidos as $pedido): ?>

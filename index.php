@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> -->
     <style>
+        
         /* Fondo con animación */
         body {
             background: linear-gradient(-45deg, #007bff, #6610f2, #6f42c1, #004085);

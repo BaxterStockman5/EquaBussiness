@@ -52,11 +52,14 @@ $conexion->close();
     </header>
 
     <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background: linear-gradient(135deg, #220357, #4B0082);">
     <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand" href="#">
-            <!-- <img src="logo.png" alt="EquaBusiness Logo" class="d-inline-block align-middle" style="width: 120px;"> -->
+        <!-- Logo animado -->
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <div class="escudo" style="animation: rotateLogo 3s linear infinite;">
+                <img src="./ebisnes.jpg" alt="Logo" style="height: 50px; border-radius: 50%; box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);">
+            </div>
+            <span class="ms-2" style="font-weight: bold; font-size: 1.3rem; color: white;">EquaBusiness</span>
         </a>
         <!-- Toggle button for mobile view -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -66,34 +69,71 @@ $conexion->close();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link " href="./paginaproducto.php">Inicio</a>
+                    <a class="nav-link active link-hover" href="./paginaproducto.php">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">moda</a>
+                    <a class="nav-link link-hover" href="electrodomesticos.php">Electrónica</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
+                    <a class="nav-link link-hover" href="moda.php">Moda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./electrodomesticos.php">electronica</a>
+                    <a class="nav-link link-hover" href="hogar.php">Hogar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-hover" href="./gmail.php">Contáctanos</a>
                 </li>
                 <!-- Carrito -->
-                <li class="nav-item">
-                    <a class="nav-link position-relative" href="#" id="carrito" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+                <li class="nav-item position-relative">
+                    <a class="nav-link position-relative carrito-hover" href="#" id="carrito" data-bs-toggle="modal" data-bs-target="#modalCarrito">
                         <i class="fas fa-shopping-cart fa-lg"></i>
-                        <span id="contador-carrito" class="badge bg-danger position-absolute top-0 start-100 translate-middle"></span>
+                        <span id="contador-carrito" class="badge bg-danger position-absolute top-0 start-100 translate-middle">0</span>
                     </a>
+                </li>
+                <li class="nav-item ms-3">
+                    <a href="login.php" class="btn btn-outline-light btn-hover">Iniciar sesión</a>
                 </li>
             </ul>
         </div>
     </div>
-    <!-- Notificación de carrito -->
-    <div id="notificacionCarrito" class="notificacion">
-        <div id="campanita" class="campanita">
-            <span id="cantidadCarrito">0</span> <!-- Muestra la cantidad de productos -->
-        </div>
-    </div>
 </nav>
+
+<style>
+/* Efectos de animación y mejoras */
+@keyframes rotateLogo {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.link-hover {
+    transition: color 0.3s ease-in-out;
+}
+.link-hover:hover {
+    color: #ffcc00 !important;
+    text-decoration: underline;
+}
+
+.carrito-hover:hover {
+    animation: vibrar 0.2s ease-in-out;
+}
+
+@keyframes vibrar {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+}
+
+.btn-hover {
+    transition: background 0.3s, transform 0.2s;
+}
+.btn-hover:hover {
+    background: #ffcc00 !important;
+    color: black !important;
+    transform: scale(1.1);
+}
+</style>
+
 
 
 <!-- Modal Carrito con Estilos y Animaciones -->

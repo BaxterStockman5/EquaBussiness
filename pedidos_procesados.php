@@ -34,6 +34,12 @@ while ($row = $result->fetch_assoc()) {
     <title>Pedidos procesados</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Enlace para la hoja de estilos de Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Enlace para los íconos de Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         body {
             display: flex;
@@ -129,25 +135,39 @@ while ($row = $result->fetch_assoc()) {
             <li><a href="pedidos_procesados.php"><i class="fas fa-sync-alt"></i> Pedidos Procesados</a></li>
             <li><a href="pedidos_cancelados.php"><i class="fas fa-times"></i> Pedidos Cancelados</a></li>
             <li><a href="pedidos_entregados.php"><i class="fas fa-check"></i> Pedidos Entregados</a></li>
-            <li><a href="productos.php"><i class="fas fa-box"></i> Productos</a></li>
+            <li><a href="./paneladmin.php"><i class="fas fa-box"></i> Productos</a></li>
             <li><a href="clientes.php"><i class="fas fa-users"></i> Clientes</a></li>
-            <li><a href="reportes.php"><i class="fas fa-chart-line"></i> Reportes</a></li>
-            <li><a href="configuracion.php"><i class="fas fa-cog"></i> Configuración</a></li>
+            <li><a href="./librerias/reporte_pedidos.php"><i class="fas fa-chart-line"></i> Reportes</a></li>
+            <!-- <li><a href="configuracion.php"><i class="fas fa-cog"></i> Configuración</a></li> -->
         </ul>
     </aside>
+    <style>
+        th {
+    
+    vertical-align: middle;
+    padding: 12px;
+}
+
+th i {
+    margin-right: 5px;
+    color: #ffc107; /* Color dorado para resaltar */
+}
+
+    </style>
     <main>
         <h3>Pedidos procesados</h3>
         <div class="table-container">
             <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Cliente</th>
-                        <th>Fecha</th>
-                        <th>Total</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
+            <thead class="table-dark text-center">
+    <tr>
+        <th><i class="bi bi-hash"></i> ID</th>
+        <th><i class="bi bi-person-circle"></i> Cliente</th>
+        <th><i class="bi bi-calendar-check"></i> Fecha</th>
+        <th><i class="bi bi-cash-stack"></i> Total</th>
+        <th><i class="bi bi-ui-checks-grid"></i> Estado</th>
+    </tr>
+</thead>
+
                 <tbody>
                     <?php if (count($pedidos) > 0): ?>
                         <?php foreach ($pedidos as $pedido): ?>

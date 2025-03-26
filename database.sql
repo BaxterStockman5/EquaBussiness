@@ -4,12 +4,22 @@ DROP DATABASE IF EXISTS EquaBussiness2;
 CREATE DATABASE EquaBussiness2;
 USE EquaBussiness2;
 
-show tables;
 -- tablas 
 -- Crear la tabla categorias
 CREATE TABLE IF NOT EXISTS categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL UNIQUE
+);
+-- Crear la tabla productos con clave foránea hacia categorias
+CREATE TABLE IF NOT EXISTS productos (
+    id_producto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(150) NOT NULL,
+    descripcion TEXT,
+    imagen VARCHAR(255),
+    id_categoria INT NOT NULL,
+    precio DECIMAL(10,2) NOT NULL CHECK (precio >= 0),
+    disponible INT NOT NULL CHECK (disponible >= 0),
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria) ON DELETE CASCADE
 );
 
 -- Crear la tabla clientes
@@ -22,18 +32,6 @@ CREATE TABLE IF NOT EXISTS clientes (
     telefono VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Crear la tabla productos con clave foránea hacia categorias
-CREATE TABLE IF NOT EXISTS productos (
-    id_producto INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(150) NOT NULL,
-    descripcion TEXT,
-    imagen VARCHAR(255),
-    id_categoria INT NOT NULL,
-    precio DECIMAL(10,2) NOT NULL CHECK (precio >= 0),
-    disponible INT NOT NULL CHECK (disponible >= 0),
-    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria) ON DELETE CASCADE
 );
 
 -- Crear la tabla pedidos
@@ -85,17 +83,6 @@ CREATE TABLE IF NOT EXISTS carrito (
 );
 
 -- Insertar registros de ejemplo en la tabla categorias
-INSERT INTO categorias (nombre) VALUES 
-('Electrónica'),
-('Moda'),
-('Hogar'),
-('Otros'),
-('Libros'),
-('Deportes'),
-('Juegos'),
-('Cuidado de la Salud'),
-('Alimentación'),
-('Herramientas');
 
 
 alter table pedidos add id_producto int;
@@ -113,13 +100,4 @@ select distinct estado from pedidos;
 describe pedidos;
 
 show columns from pedidos like 'estado';
-
-CREATE TABLE publicidad (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(255) NOT NULL,
-    descripcion TEXT NOT NULL,
-    imagen VARCHAR(255) NOT NULL
-);
-
-
 

@@ -199,8 +199,8 @@ if (!isset($_SESSION["admin_id"])) {
             <li><a href="pedidos_procesados.php"><i class="fas fa-sync-alt"></i> Pedidos Procesados</a></li>
             <li><a href="pedidos_cancelados.php"><i class="fas fa-times"></i> Pedidos Cancelados</a></li>
             <li><a href="pedidos_entregados.php"><i class="fas fa-check"></i> Pedidos Entregados</a></li>
-            <li><a href="productos.php"><i class="fas fa-box"></i> Productos</a></li>
-            <li><a href="./paneladmin.php"><i class="fas fa-users"></i> Clientes</a></li>
+            <li><a href="./paneladmin.php"><i class="fas fa-box"></i> Productos</a></li>
+            <li><a href="./clientes.php"><i class="fas fa-users"></i> Clientes</a></li>
             <li><a href="./librerias/reporte_pedidos.php"><i class="fas fa-chart-line"></i> Reportes</a></li>
             <li><a href="./detalles_pedidos.php"><i class="fas fa-cog"></i> Detalles Pedidos</a></li>
         </ul>

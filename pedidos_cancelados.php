@@ -129,24 +129,38 @@ while ($row = $result->fetch_assoc()) {
             <li><a href="pedidos_cancelados.php"><i class="fas fa-times"></i> Pedidos Cancelados</a></li>
             <li><a href="pedidos_entregados.php"><i class="fas fa-check"></i> Pedidos Entregados</a></li>
             <li><a href="./paneladmin.php"><i class="fas fa-box"></i> Productos</a></li>
-            <li><a href="clientes.php"><i class="fas fa-users"></i> Clientes</a></li>
+            <!-- <li><a href=""><i class="fas fa-users"></i> Clientes</a></li> -->
             <li><a href="reportes.php"><i class="fas fa-chart-line"></i> Reportes</a></li>
             <!-- <li><a href="configuracion.php"><i class="fas fa-cog"></i> Configuración</a></li> -->
         </ul>
     </aside>
+    <style>
+        th {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+    font-weight: bold;
+}
+th i {
+   
+    color: #ffc107; /* Color dorado para resaltar los íconos */
+}
+
+    </style>
     <main>
         <h3>Pedidos Cancelados</h3>
         <div class="table-container">
             <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Cliente</th>
-                        <th>Fecha</th>
-                        <th>Total</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
+            <thead class="table-dark text-center">
+    <tr>
+        <th><i class="fas fa-hashtag"></i> ID</th>
+        <th><i class="fas fa-user"></i> Cliente</th>
+        <th><i class="fas fa-calendar-alt"></i> Fecha</th>
+        <th><i class="fas fa-money-bill-wave"></i> Total</th>
+        <th><i class="fas fa-tasks"></i> Estado</th>
+    </tr>
+</thead>
+
                 <tbody>
                     <?php if (count($pedidos) > 0): ?>
                         <?php foreach ($pedidos as $pedido): ?>

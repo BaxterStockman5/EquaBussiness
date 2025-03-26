@@ -17,6 +17,19 @@
             padding: 20px;
             overflow-x: hidden;
         }
+        a{
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s ease-in-out;
+            font-size: 16px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            
+        }
 
         h2 {
             font-size: 2rem;

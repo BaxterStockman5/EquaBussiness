@@ -196,9 +196,9 @@
             <li><a href="pedidos_cancelados.php"><i class="fas fa-times"></i> Pedidos Cancelados</a></li>
             <li><a href="pedidos_entregados.php"><i class="fas fa-check"></i> Pedidos Entregados</a></li>
             <li><a href="#" class="active"><i class="fas fa-box"></i> Detalles Pedidos</a></li>
-            <li><a href="clientes.php"><i class="fas fa-users"></i> Clientes</a></li>
-            <li><a href="reportes.php"><i class="fas fa-chart-line"></i> Reportes</a></li>
-            <li><a href="configuracion.php"><i class="fas fa-cog"></i> Configuración</a></li>
+            <!-- <li><a href="clientes.php"><i class="fas fa-users"></i> Clientes</a></li> -->
+            <li><a href="./estadistica_pedidos.php"><i class="fas fa-chart-line"></i>estadistica</a></li>
+            <li><a href="./paneladmin.php"><i class="fas fa-box"></i> productos</a></li>
         </ul>
     </aside>
 
